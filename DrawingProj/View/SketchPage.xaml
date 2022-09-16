@@ -1,0 +1,573 @@
+﻿<Page
+    x:Class="DrawingProj.View.SketchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:controls="using:DrawingProj.Controls"
+    xmlns:converts="using:DrawingProj.Converts"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:DrawingProj.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:services="using:DrawingProj.Services"
+    d:RequestedTheme="Light"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    DataContext="{Binding SketchPageViewModel, Source={StaticResource Locator}}"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <x:Double x:Key="ButtonSize">30</x:Double>
+        <converts:ColorToBrushConvert x:Key="ColorToBrushConvert" />
+        <converts:IsCheckedToColorConvert x:Key="IsCheckedToColorConvert" />
+        <converts:FloatZoomFactorToPercentageLine x:Key="FloatZoomFactorToPercentageLine" />
+        <converts:IsCheckedToCanvasToggleButtonBacground x:Key="IsCheckedToCanvasToggleButtonBacground" />
+    </Page.Resources>
+
+    <Grid Background="{StaticResource SketchPageBackground}">
+
+        <!--  Sketch background(canvas)  -->
+        <ScrollViewer
+            x:Name="ImageScrollViewer"
+            HorizontalScrollBarVisibility="Hidden"
+            MaxZoomFactor="1.5"
+            MinZoomFactor="0.5"
+            PointerMoved="ImageScrollViewer_PointerMoved"
+            PointerPressed="ImageScrollViewer_PointerPressed"
+            VerticalScrollBarVisibility="Hidden">
+
+            <Grid
+                x:Name="CanvasGrid"
+                Width="1024"
+                Height="768"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                PointerMoved="CanvasGrid_PointerMoved"
+                PointerPressed="CanvasGrid_PointerPressed"
+                PointerReleased="CanvasGrid_PointerReleased">
+
+                <Image Width="{Binding ElementName=CanvasGrid, Path=Width, Mode=OneWay}" Height="{Binding ElementName=CanvasGrid, Path=Height, Mode=OneWay}">
+
+                    <Image.Source>
+
+                        <BitmapImage
+                            DecodePixelHeight="{Binding ElementName=CanvasGrid, Path=Height, Mode=OneWay}"
+                            DecodePixelWidth="{Binding ElementName=CanvasGrid, Path=Width, Mode=OneWay}"
+                            UriSource="{Binding CurrentSketch.CanvasPath, Mode=OneWay}" />
+                    </Image.Source>
+                </Image>
+
+                <canvas:CanvasControl
+                    x:Name="CanvasControl"
+                    CreateResources="CanvasControl_CreateResources"
+                    Draw="CanvasControl_Draw" />
+            </Grid>
+        </ScrollViewer>
+
+        <!--  Sketch controls  -->
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="{StaticResource ControlsBackground}">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    x:Name="ReturnButton"
+                    Grid.Column="0"
+                    Width="{StaticResource ButtonSize}"
+                    Height="{StaticResource ButtonSize}"
+                    Margin="10,2,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Background="{StaticResource ControlsBackground}"
+                    Command="{Binding BackToProjectsPageAsyncCommand}"
+                    CornerRadius="3"
+                    IsTabStop="False"
+                    Style="{StaticResource UnresponsiveButtonStyle}">
+                    <animations:Implicit.ShowAnimations>
+                        <animations:OpacityAnimation
+                            From="0"
+                            To="1"
+                            Duration="0:0:0.5" />
+                    </animations:Implicit.ShowAnimations>
+                    <animations:Implicit.HideAnimations>
+                        <animations:OpacityAnimation
+                            From="1"
+                            To="0"
+                            Duration="0:0:0.5" />
+                    </animations:Implicit.HideAnimations>
+
+                    <FontIcon
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="15"
+                        FontWeight="Bold"
+                        Foreground="{StaticResource SettingsForeground}"
+                        Glyph="&#xE72B;" />
+                </Button>
+
+                <!--  Undo/Redo panel  -->
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="230,9,0,0"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+
+                    <Button
+                        Name="UndoButton"
+                        Width="{StaticResource ButtonSize}"
+                        Height="{StaticResource ButtonSize}"
+                        Command="{Binding UndoCommand}"
+                        IsEnabled="{Binding CanUndo, Mode=OneWay}"
+                        IsTabStop="False"
+                        Style="{StaticResource UnresponsiveButtonStyle}">
+
+                        <BitmapIcon UriSource="{StaticResource UndoIcon}" />
+                    </Button>
+
+                    <Button
+                        x:Name="RedoButton"
+                        Width="{StaticResource ButtonSize}"
+                        Height="{StaticResource ButtonSize}"
+                        Command="{Binding RedoCommand}"
+                        IsEnabled="{Binding CanRedo, Mode=OneWay}"
+                        IsTabStop="False"
+                        Style="{StaticResource UnresponsiveButtonStyle}">
+
+                        <BitmapIcon UriSource="{StaticResource RedoIcon}" />
+                    </Button>
+                </StackPanel>
+
+                <!--  Panel with canvases, share, laers and premium buttons  -->
+                <StackPanel
+                    Grid.Column="2"
+                    Margin="0,0,10,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="10">
+
+                    <ToggleButton
+                        x:Name="CanvasesToggleButton"
+                        Width="50"
+                        Height="{StaticResource ButtonSize}"
+                        Margin="0,0,50,0"
+                        Padding="0"
+                        Background="{Binding ElementName=CanvasesToggleButton, Path=IsChecked, Converter={StaticResource IsCheckedToCanvasToggleButtonBacground}}"
+                        CornerRadius="6"
+                        IsChecked="True"
+                        IsTabStop="False"
+                        Style="{StaticResource ToolsSettingsToggleButtonStyle}">
+
+                        <StackPanel Orientation="Horizontal" Spacing="7">
+
+                            <BitmapIcon
+                                Width="18"
+                                Height="18"
+                                UriSource="{StaticResource BackgroundsIcon}" />
+
+                            <FontIcon
+                                FontFamily="Segoe MDL2 Assets"
+                                FontSize="10"
+                                FontWeight="Bold"
+                                Foreground="{StaticResource ProjectsPageTitleColor}"
+                                Glyph="&#xE70D;" />
+                        </StackPanel>
+                    </ToggleButton>
+
+                    <Button
+                        x:Name="ResetButton"
+                        Width="{StaticResource ButtonSize}"
+                        Height="{StaticResource ButtonSize}"
+                        Command="{Binding OpenResetDialogAsyncCommand}"
+                        IsTabStop="False"
+                        Style="{StaticResource UnresponsiveButtonStyle}">
+
+                        <BitmapIcon
+                            Width="23"
+                            Height="23"
+                            UriSource="{StaticResource ResetIcon}" />
+                    </Button>
+
+                    <Grid>
+
+                        <ToggleButton
+                            x:Name="LayersMenuToggleButton"
+                            Width="{StaticResource ButtonSize}"
+                            Height="{StaticResource ButtonSize}"
+                            Background="Transparent"
+                            IsChecked="False"
+                            IsTabStop="False"
+                            Style="{StaticResource ToolsSettingsToggleButtonStyle}">
+
+                            <BitmapIcon
+                                Width="20"
+                                Height="21"
+                                Foreground="{Binding ElementName=LayersMenuToggleButton, Path=IsChecked, Converter={StaticResource IsCheckedToColorConvert}}"
+                                UriSource="{StaticResource LayersIcon}" />
+                        </ToggleButton>
+                    </Grid>
+
+                    <Button
+                        Name="ShareButton"
+                        Width="{StaticResource ButtonSize}"
+                        Height="{StaticResource ButtonSize}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Background="{StaticResource ControlsBackground}"
+                        Command="{Binding ShareSketchAsyncCommand}"
+                        CornerRadius="5"
+                        IsTabStop="False"
+                        Style="{StaticResource UnresponsiveButtonStyle}">
+                        <animations:Implicit.ShowAnimations>
+                            <animations:OpacityAnimation
+                                From="0"
+                                To="1"
+                                Duration="0:0:0.5" />
+                        </animations:Implicit.ShowAnimations>
+                        <animations:Implicit.HideAnimations>
+                            <animations:OpacityAnimation
+                                From="1"
+                                To="0"
+                                Duration="0:0:0.5" />
+                        </animations:Implicit.HideAnimations>
+
+                        <BitmapIcon
+                            Width="17"
+                            Height="16"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            UriSource="{StaticResource ShareIcon}" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <!--  Canvases list  -->
+            <Grid
+                Grid.Row="1"
+                Width="200"
+                Height="430"
+                Margin="0,10,190,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="{StaticResource CanvasesGridBackground}"
+                CornerRadius="10"
+                Tapped="UIElement_Tapped"
+                Visibility="{Binding ElementName=CanvasesToggleButton, Path=IsChecked, Mode=OneWay}">
+
+                <ListBox
+                    x:Name="CanvasesListBox"
+                    Background="{StaticResource CanvasesListBoxBackground}"
+                    IsTabStop="False"
+                    ItemContainerStyle="{StaticResource PaperListBoxItemStyle}"
+                    ItemsSource="{x:Bind services:ServiceLocator.AssetsService.CanvasesList}"
+                    SelectedItem="{Binding CurrentCanvas, Mode=TwoWay}">
+                    <interactivity:Interaction.Behaviors>
+
+                        <core:EventTriggerBehavior EventName="SelectionChanged">
+                            <core:InvokeCommandAction Command="{Binding SelectCanvasCommand}" />
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+
+                    <ListBox.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Grid>
+
+                                <!--  Canvas representation as icon-title  -->
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+
+                                    <Rectangle
+                                        Width="20"
+                                        Height="20"
+                                        RadiusX="10"
+                                        RadiusY="10">
+
+                                        <Rectangle.Fill>
+
+                                            <ImageBrush ImageSource="{Binding CanvasPath}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontFamily="{StaticResource Raleway-Medium}"
+                                        FontSize="10"
+                                        Text="{Binding Name}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+            <controls:ToolsSettingsControl
+                x:Name="CurrentToolSettings"
+                Grid.Row="1"
+                Width="215"
+                Margin="10,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                CurrentDrawingTool="{Binding CurrentDrawingTool, Mode=OneWay}"
+                CurrentFormTool="{Binding CurrentDrawingTool.CurrentForm, Mode=TwoWay}"
+                Tapped="UIElement_Tapped"
+                Visibility="{Binding ElementName=OpenToolsSettingsButton, Path=IsChecked, Mode=TwoWay}">
+
+                <animations:Implicit.ShowAnimations>
+                    <animations:OpacityAnimation
+                        From="0"
+                        To="1"
+                        Duration="0:0:0.5" />
+                </animations:Implicit.ShowAnimations>
+
+                <animations:Implicit.HideAnimations>
+                    <animations:OpacityAnimation
+                        From="1"
+                        To="0"
+                        Duration="0:0:0.5" />
+                </animations:Implicit.HideAnimations>
+            </controls:ToolsSettingsControl>
+
+            <controls:ColorPickerControl
+                x:Name="ColorPickerControl"
+                Grid.Row="1"
+                Width="226"
+                Margin="230,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                CurrentColor="{Binding CurrentDrawingTool.CurrentColor, Mode=TwoWay}"
+                IsTabStop="False"
+                OpacityValue="{Binding CurrentDrawingTool.Opacity, Mode=OneWay}"
+                Tapped="UIElement_Tapped"
+                Visibility="{Binding ElementName=OpenColorSettingsButton, Path=IsChecked, Mode=TwoWay}">
+
+                <animations:Implicit.ShowAnimations>
+                    <animations:OpacityAnimation
+                        From="0"
+                        To="1"
+                        Duration="0:0:0.5" />
+                </animations:Implicit.ShowAnimations>
+
+                <animations:Implicit.HideAnimations>
+                    <animations:OpacityAnimation
+                        From="1"
+                        To="0"
+                        Duration="0:0:0.5" />
+                </animations:Implicit.HideAnimations>
+            </controls:ColorPickerControl>
+
+            <controls:LayersControl
+                x:Name="ListLayersControl"
+                Grid.Row="1"
+                Width="170"
+                Height="550"
+                Margin="0,10,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                CurrentLayer="{Binding CurrentLayer, Mode=TwoWay}"
+                LayersList="{Binding CurrentSketch.LayersList, Mode=OneWay}"
+                Tapped="UIElement_Tapped"
+                Visibility="{Binding ElementName=LayersMenuToggleButton, Path=IsChecked, Mode=TwoWay}">
+
+                <animations:Implicit.ShowAnimations>
+                    <animations:OpacityAnimation
+                        From="0"
+                        To="1"
+                        Duration="0:0:0.5" />
+                </animations:Implicit.ShowAnimations>
+
+                <animations:Implicit.HideAnimations>
+                    <animations:OpacityAnimation
+                        From="1"
+                        To="0"
+                        Duration="0:0:0.5" />
+                </animations:Implicit.HideAnimations>
+            </controls:LayersControl>
+
+            <!--  Drawing toolbar  -->
+            <Grid
+                x:Name="DrawingToolsBar"
+                Grid.Row="1"
+                Width="510"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Background="{StaticResource DrawingToolsBarBackground}"
+                CornerRadius="25 25 0 0 "
+                Visibility="{x:Bind _isElementVisible, Mode=OneWay}">
+
+                <animations:Implicit.ShowAnimations>
+                    <animations:OpacityAnimation
+                        From="0"
+                        To="1"
+                        Duration="0:0:0.5" />
+                </animations:Implicit.ShowAnimations>
+
+                <animations:Implicit.HideAnimations>
+                    <animations:OpacityAnimation
+                        From="1"
+                        To="0"
+                        Duration="0:0:0.5" />
+                </animations:Implicit.HideAnimations>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <GridView
+                    x:Name="DrawingToolListGridView"
+                    Grid.Row="0"
+                    Margin="0,15,0,-5"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    IsTabStop="False"
+                    ItemContainerStyle="{StaticResource SketchesGridViewItemStyle}"
+                    ItemsSource="{x:Bind services:ServiceLocator.ListToolsService.DrawingToolsList}"
+                    SelectedItem="{Binding CurrentDrawingTool, Mode=TwoWay}"
+                    SelectionChanged="DrawingToolListGridView_SelectionChanged">
+
+                    <interactivity:Interaction.Behaviors>
+
+                        <core:EventTriggerBehavior EventName="SelectionChanged">
+                            <core:InvokeCommandAction Command="{Binding SelectToolCommand}" />
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+
+                    <GridView.ItemsPanel>
+
+                        <ItemsPanelTemplate>
+
+                            <StackPanel Orientation="Horizontal" Spacing="-5" />
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+
+                    <GridView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <controls:DrawingToolControl
+                                ColorImagePath="{Binding ColorImagePath, Mode=OneWay}"
+                                DrawingToolColor="{Binding CurrentColor, Mode=OneWay}"
+                                IsPremium="{Binding IsPremium, Mode=OneWay}"
+                                IsSelected="{Binding IsSelected, Mode=OneWay}"
+                                MainImagePath="{Binding MainImagePath, Mode=OneWay}"
+                                NotActiveImagePath="{Binding NotActiveImagePath, Mode=OneWay}" />
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+
+                <ToggleButton
+                    x:Name="OpenColorSettingsButton"
+                    Width="{StaticResource ButtonSize}"
+                    Height="{StaticResource ButtonSize}"
+                    Margin="0,10,20,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="{Binding CurrentDrawingTool.CurrentColor, Mode=OneWay, Converter={StaticResource ColorToBrushConvert}}"
+                    BorderBrush="{StaticResource ColorToggleButtonShadow}"
+                    BorderThickness="1"
+                    CornerRadius="30"
+                    IsTabStop="False"
+                    Style="{StaticResource ToolsSettingsToggleButtonStyle}" />
+
+                <ToggleButton
+                    x:Name="OpenToolsSettingsButton"
+                    Width="{StaticResource ButtonSize}"
+                    Height="{StaticResource ButtonSize}"
+                    Margin="0,0,20,5"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Background="Transparent"
+                    IsChecked="False"
+                    IsTabStop="False"
+                    Style="{StaticResource ToolsSettingsToggleButtonStyle}">
+
+                    <BitmapIcon Foreground="{Binding ElementName=OpenToolsSettingsButton, Path=IsChecked, Converter={StaticResource IsCheckedToColorConvert}}" UriSource="{StaticResource ToolsSettingsIcon}" />
+                </ToggleButton>
+            </Grid>
+
+            <!--  Scale settings menu  -->
+            <StackPanel
+                Grid.Row="1"
+                Height="40"
+                Margin="0,0,10,10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Background="{StaticResource ControlsBackground}"
+                CornerRadius="4"
+                Orientation="Horizontal">
+
+                <Button
+                    x:Name="VisibleWindowsButton"
+                    Width="{StaticResource ButtonSize}"
+                    Height="{StaticResource ButtonSize}"
+                    Margin="10,0,10,0"
+                    Click="VisibleWindowsButton_Click"
+                    IsTabStop="False"
+                    Style="{StaticResource UnresponsiveButtonStyle}"
+                    Visibility="Collapsed">
+
+                    <BitmapIcon UriSource="{StaticResource VisibleWindowsIcon}" />
+                </Button>
+
+                <Button
+                    x:Name="CollapsedWindowsButton"
+                    Width="{StaticResource ButtonSize}"
+                    Height="{StaticResource ButtonSize}"
+                    Margin="10,0,10,0"
+                    Click="CollapsedWindowsButton_Click"
+                    IsTabStop="False"
+                    Style="{StaticResource UnresponsiveButtonStyle}">
+
+                    <BitmapIcon UriSource="{StaticResource CollapsedWindowsIcon}" />
+                </Button>
+
+                <AppBarSeparator x:Name="SeporatorRectangle" Margin="0,0,10,0" />
+
+                <Button
+                    x:Name="UpScaleButton"
+                    Width="20"
+                    Height="20"
+                    Margin="0,0,10,0"
+                    Click="UpScaleButton_Click"
+                    IsTabStop="False"
+                    Style="{StaticResource UnresponsiveButtonStyle}">
+
+                    <BitmapIcon UriSource="{StaticResource UpScaleIcon}" />
+                </Button>
+
+                <TextBlock
+                    x:Name="ZoomFactorTextBloc"
+                    Width="50"
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource Raleway-Medium}"
+                    FontSize="12"
+                    Text="{x:Bind ZoomValue, Converter={StaticResource FloatZoomFactorToPercentageLine}, Mode=OneWay}"
+                    TextAlignment="Center" />
+
+                <Button
+                    x:Name="DownScaleButton"
+                    Width="20"
+                    Height="20"
+                    Margin="0,0,10,0"
+                    Click="DownScaleButton_Click"
+                    IsTabStop="False"
+                    Style="{StaticResource UnresponsiveButtonStyle}">
+
+                    <BitmapIcon UriSource="{StaticResource DownScaleIcon}" />
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

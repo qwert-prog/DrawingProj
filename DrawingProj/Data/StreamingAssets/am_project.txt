@@ -1,0 +1,32 @@
+{	
+	"project_info": {
+		"available_languages": ["EN"],
+		"banner_position": {
+			"x": "center", 
+			"y": "bottom"
+		},
+		"orientation": "ll",	
+		"banner_method": "none",		
+		"resolutions": [
+			"ID_CAP_MEDIALIB_PHOTO",
+			"ID_REQ_MEMORY_300"
+		],
+                "quality_settings": [
+                         {
+                                "ram": 550,
+				"quality_level": 0,
+				"master_texture_limit": 3
+                         },
+                         {
+                                "ram": 950,
+				"quality_level": 1,
+				"master_texture_limit": 1
+                         },
+                         {
+                                "ram": 100000,
+				"quality_level": 2,
+				"master_texture_limit": 0
+                         }
+                ]
+	}
+}

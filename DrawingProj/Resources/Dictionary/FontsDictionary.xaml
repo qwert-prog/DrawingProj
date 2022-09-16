@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <FontFamily x:Key="Raleway-ExtraBold">ms-appx://DrawingProj/Assets/Fonts/Raleway-ExtraBold.ttf#Raleway</FontFamily>
+    <FontFamily x:Key="Raleway-Bold">ms-appx://DrawingProj/Assets/Fonts/Raleway-Bold.ttf#Raleway</FontFamily>
+    <FontFamily x:Key="Raleway-Black">ms-appx://DrawingProj/Assets/Fonts/Raleway-Black.ttf#Raleway</FontFamily>
+    <FontFamily x:Key="Raleway-Medium">ms-appx://DrawingProj/Assets/Fonts/Raleway-Medium.ttf#Raleway</FontFamily>
+    <FontFamily x:Key="Raleway-Regular">ms-appx://DrawingProj/Assets/Fonts/Raleway-Regular.ttf#Raleway</FontFamily>
+    <FontFamily x:Key="Raleway-Semibold">ms-appx://DrawingProj/Assets/Fonts/Raleway-SemiBold.ttf#Raleway</FontFamily>
+</ResourceDictionary>

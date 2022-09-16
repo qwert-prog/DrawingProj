@@ -1,0 +1,132 @@
+﻿<Page
+    x:Class="DrawingProj.View.ProjectsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Ads="using:Advertisement"
+    xmlns:controls="using:DrawingProj.Controls"
+    xmlns:converts="using:DrawingProj.Converts"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:Utils.Helpers"
+    xmlns:local="using:DrawingProj.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    d:RequestedTheme="Light"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    DataContext="{Binding ProjectsPageViewModel, Source={StaticResource Locator}}"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <converts:EmptyToVisibleConvert x:Key="EmptyToVisibleConvert" />
+        <Color x:Key="ProjectsItemShadowColor">#44080C2A</Color>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource ProjectsPageBackground}">
+
+        <TextBlock
+            x:Uid="MyWorks"
+            Margin="20,15,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            d:Text="Мои работы"
+            FontFamily="{StaticResource Raleway-ExtraBold}"
+            FontSize="28"
+            Foreground="{StaticResource ProjectsPageTitleColor}" />
+
+        <!--  Picture in the absence of sketches  -->
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Spacing="75"
+            Visibility="{Binding SketchesList.Count, Mode=OneWay, Converter={StaticResource EmptyToVisibleConvert}}">
+
+            <Image
+                x:Name="NoSketchesImage"
+                Width="110"
+                Height="75">
+
+                <Image.Source>
+
+                    <BitmapImage
+                        DecodePixelHeight="{Binding ElementName=NoSketchesImage, Path=Height}"
+                        DecodePixelWidth="{Binding ElementName=NoSketchesImage, Path=Width}"
+                        UriSource="{StaticResource PencilLogo}" />
+                </Image.Source>
+            </Image>
+
+            <TextBlock
+                x:Uid="NotSketches"
+                d:Text="У вас нет пока работ"
+                FontFamily="{StaticResource Raleway-Medium}"
+                FontSize="22"
+                Foreground="{StaticResource ProjectsPageIconTextColor}" />
+        </StackPanel>
+
+        <!--  GridView with created sketches  -->
+        <GridView
+            x:Name="ProjectsGridVew"
+            Margin="15,65,15,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            ItemContainerStyle="{StaticResource SketchesGridViewItemStyle}"
+            ItemsSource="{Binding SketchesList}"
+            SelectedItem="{Binding SelectedSketch, Mode=TwoWay}">
+
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid
+                        ItemHeight="260"
+                        ItemWidth="220"
+                        Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+
+            <GridView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <toolkitControls:DropShadowPanel
+                        x:Name="SettingsShadow"
+                        Margin="0,0,0,20"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        BlurRadius="20"
+                        CornerRadius="40"
+                        IsMasked="True"
+                        OffsetX="0"
+                        OffsetY="2"
+                        ShadowOpacity="0.1"
+                        Color="{StaticResource ProjectsItemShadowColor}">
+
+                        <controls:ProjectsPageItemControl
+                            RightTapped="MainGrid_RightTapped"
+                            SketchImagePath="{Binding ImagePath, Mode=OneWay}"
+                            SketchName="{Binding DisplayName, Mode=OneWay}"
+                            Tapped="MainGrid_Tapped" />
+                    </toolkitControls:DropShadowPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
+        <Button
+            x:Name="CreateSketcButton"
+            Width="180"
+            Height="35"
+            Margin="0,0,25,25"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Background="{StaticResource CreateProjectButtonBackground}"
+            Command="{Binding CreateSketchAsyncCommand, Mode=OneWay}"
+            CornerRadius="10"
+            IsTabStop="False"
+            Style="{StaticResource CreateProjectButtonStyle}"
+            Visibility="{Binding IsPossibleCreateSketch, Mode=OneWay}">
+
+            <TextBlock
+                x:Uid="CreateProject"
+                helpers:TextBlockHelper.UseUpperCase="True"
+                FontFamily="{StaticResource Raleway-ExtraBold}"
+                FontSize="12"
+                Foreground="{StaticResource CreateProjectButtonForeground}" />
+        </Button>
+    </Grid>
+</Page>

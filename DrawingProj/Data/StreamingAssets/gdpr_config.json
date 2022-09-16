@@ -1,0 +1,8 @@
+{
+  "main_privacy_domain": "https://privacy0.motivapp.at/api/v3/privacy/",
+  "reserve_privacy_domain": "https://privacy1.motivapp.at/api/v3/privacy/",
+  "company_id": 183,
+  "public_api_key": "3d8d73cd-3bd7-4ad5-b2d0-df45abce70f1",
+  "gdpr_support": "none",
+  "auth_gdpr": false
+}

@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <x:String x:Key="PencilLogo">ms-appx://DrawingProj/Assets/Icons/PencilLogo.png</x:String>
+    <ImageBrush x:Key="SettingsIcon" ImageSource="ms-appx://DrawingProj/Assets/Icons/SettingsIcon.png" />
+    <x:String x:Key="UndoIcon">ms-appx://DrawingProj/Assets/Icons/Undo.png</x:String>
+    <x:String x:Key="RedoIcon">ms-appx://DrawingProj/Assets/Icons/Redo.png</x:String>
+    <x:String x:Key="ResetIcon">ms-appx://DrawingProj/Assets/Icons/Reset.png</x:String>
+    <x:String x:Key="BackgroundsIcon">ms-appx://DrawingProj/Assets/Icons/Backgrounds.png</x:String>
+    <x:String x:Key="LayersIcon">ms-appx://DrawingProj/Assets/Icons/Layers.png</x:String>
+    <x:String x:Key="ShareIcon">ms-appx://DrawingProj/Assets/Icons/Share.png</x:String>
+    <x:String x:Key="ToolsSettingsIcon">ms-appx://DrawingProj/Assets/Icons/ToolsSettings.png</x:String>
+    <x:String x:Key="CollapsedWindowsIcon">ms-appx://DrawingProj/Assets/Icons/CollapsedWindows.png</x:String>
+    <x:String x:Key="VisibleWindowsIcon">ms-appx://DrawingProj/Assets/Icons/VisibleWindows.png</x:String>
+    <x:String x:Key="UpScaleIcon">ms-appx://DrawingProj/Assets/Icons/UpScale.png</x:String>
+    <x:String x:Key="DownScaleIcon">ms-appx://DrawingProj/Assets/Icons/DownScale.png</x:String>
+    <x:String x:Key="ShowScaleIcon">ms-appx://DrawingProj/Assets/Icons/Show.png</x:String>
+    <x:String x:Key="LockIcon">ms-appx://DrawingProj/Assets/Icons/Lock.png</x:String>
+    <x:String x:Key="HideIcon">ms-appx://DrawingProj/Assets/Icons/Hide.png</x:String>
+    <x:String x:Key="AddLayerIcon">ms-appx://DrawingProj/Assets/Icons/AddLayer.png</x:String>
+    <x:String x:Key="DeleteLayerIcon">ms-appx://DrawingProj/Assets/Icons/DeleteLayer.png</x:String>
+    <x:String x:Key="SettingsButtonIcon">ms-appx://DrawingProj/Assets/Icons/SettingsButtonIcon.png</x:String>
+    <ImageBrush
+        x:Key="TransparentLayersBackgraundImage"
+        ImageSource="ms-appx://DrawingProj/Assets/Icons/TransparentLayersBackgraundImage.jpg"
+        Opacity="0.7" />
+</ResourceDictionary>

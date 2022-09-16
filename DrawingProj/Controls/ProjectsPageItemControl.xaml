@@ -1,0 +1,103 @@
+﻿<UserControl
+    x:Class="DrawingProj.Controls.ProjectsPageItemControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:DrawingProj.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:services="using:DrawingProj.Services"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+
+        <SolidColorBrush x:Key="SketchNameForeground" Color="#121212" />
+
+        <LinearGradientBrush x:Key="SketchNameBackground" StartPoint="0.3, 0.1" EndPoint="0.3, 0.67">
+            <GradientStop Offset="0" Color="Transparent" />
+            <GradientStop Offset="1" Color="#FFFFFF" />
+        </LinearGradientBrush>
+
+        <x:Double x:Key="MenuFlyoutItemHeight">40</x:Double>
+    </UserControl.Resources>
+
+    <!--  Project list item  -->
+    <Grid Name="MainGrid" CornerRadius="20">
+
+        <Grid.ContextFlyout>
+
+            <MenuFlyout>
+
+                <MenuFlyout.MenuFlyoutPresenterStyle>
+
+                    <Style TargetType="MenuFlyoutPresenter">
+                        <Setter Property="MinWidth" Value="210" />
+                        <Setter Property="MinHeight" Value="120" />
+                    </Style>
+                </MenuFlyout.MenuFlyoutPresenterStyle>
+
+                <MenuFlyoutItem
+                    x:Name="RenameFlyoutItem"
+                    x:Uid="Rename"
+                    Height="{StaticResource MenuFlyoutItemHeight}"
+                    Click="RenameFlyoutItem_Click" />
+
+                <MenuFlyoutItem
+                    x:Name="ShareFlyoutItem"
+                    x:Uid="Share"
+                    Height="{StaticResource MenuFlyoutItemHeight}"
+                    Command="{x:Bind services:ServiceLocator.ProjectsPageViewModel.ShareSketchAsyncCommand}" />
+
+                <MenuFlyoutItem
+                    x:Name="DeleteFlyoutItem"
+                    x:Uid="Delete"
+                    Height="{StaticResource MenuFlyoutItemHeight}"
+                    Command="{x:Bind services:ServiceLocator.ProjectsPageViewModel.OpenDeleteDialogAsyncCommand}" />
+            </MenuFlyout>
+        </Grid.ContextFlyout>
+
+        <Image
+            x:Name="ItemImage"
+            Width="190"
+            Height="250"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom">
+
+            <Image.Source>
+
+                <BitmapImage
+                    CreateOptions="IgnoreImageCache"
+                    DecodePixelHeight="{Binding ElementName=ItemImage, Path=Height}"
+                    DecodePixelWidth="{Binding ElementName=ItemImage, Path=Width}"
+                    UriSource="{x:Bind SketchImagePath, Mode=OneWay}" />
+            </Image.Source>
+        </Image>
+
+        <Rectangle
+            Width="190"
+            Height="70"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Fill="{StaticResource SketchNameBackground}" />
+
+        <TextBlock
+            x:Name="NameSketchTextBlock"
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            FontFamily="{StaticResource Raleway-Bold}"
+            FontSize="17"
+            Foreground="{StaticResource SketchNameForeground}"
+            Text="{x:Bind SketchName, Mode=OneWay}" />
+
+        <TextBox
+            x:Name="RenameTextBox"
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            KeyDown="RenameTextBox_KeyDown"
+            LostFocus="RenameTextBox_LostFocus"
+            Text="{x:Bind SketchName, Mode=OneWay}"
+            Visibility="Collapsed" />
+    </Grid>
+</UserControl>

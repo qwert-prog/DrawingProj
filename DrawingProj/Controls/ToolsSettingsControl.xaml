@@ -1,0 +1,204 @@
+﻿<UserControl
+    x:Class="DrawingProj.Controls.ToolsSettingsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converts="using:DrawingProj.Converts"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:DrawingProj.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converts:FillToVisibilityConvert x:Key="FillToVisibilityConvert" />
+    </UserControl.Resources>
+
+    <UserControl.RenderTransform>
+        <TransformGroup>
+            <TranslateTransform x:Name="ControlTranslate" />
+        </TransformGroup>
+    </UserControl.RenderTransform>
+
+    <!--  Grid with window of settings drawing tool  -->
+    <Grid
+        x:Name="DrawingToolSettingsGrid"
+        Background="{StaticResource DrawingToolsBarBackground}"
+        CornerRadius="6">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid
+            Grid.Row="0"
+            Background="{StaticResource SettingsHeaderColor}"
+            ManipulationDelta="DrawingToolSettingsGrid_ManipulationDelta"
+            ManipulationMode="TranslateX,TranslateY">
+
+            <Button
+                x:Name="CloseDrawingTollSettings"
+                Width="15"
+                Height="15"
+                Margin="0,3,3,2"
+                HorizontalAlignment="Right"
+                Click="CloseDrawingTollSettings_Click"
+                IsTabStop="False">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button" />
+                </Button.Template>
+
+                <FontIcon
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="12"
+                    Foreground="{StaticResource SettingsForeground}"
+                    Glyph="&#xE711;" />
+            </Button>
+        </Grid>
+
+        <TextBlock
+            x:Name="SizeTextBlock"
+            x:Uid="Size"
+            Grid.Row="1"
+            Margin="8,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            d:Text="Размер"
+            FontFamily="{StaticResource Raleway-Medium}"
+            FontSize="10" />
+
+        <muxc:NumberBox
+            x:Name="SizeNumberBox"
+            Grid.Row="1"
+            Margin="0,7,10,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            FontFamily="{StaticResource Raleway-Medium}"
+            FontSize="15"
+            LargeChange="1"
+            Maximum="{Binding ElementName=SizeSlider, Path=Maximum, Mode=OneWay}"
+            Minimum="{Binding ElementName=SizeSlider, Path=Minimum, Mode=OneWay}"
+            SmallChange="1"
+            Style="{StaticResource SizeAndOpacityNumberBoxStyle}"
+            Value="{x:Bind CurrentDrawingTool.Size, Mode=TwoWay}" />
+
+        <Slider
+            x:Name="SizeSlider"
+            Grid.Row="1"
+            Width="196"
+            Margin="0,45,0,10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            IsTabStop="False"
+            IsThumbToolTipEnabled="False"
+            Maximum="100"
+            Minimum="1"
+            Style="{StaticResource OpacityAndSizeSlidesrStyle}"
+            Value="{x:Bind CurrentDrawingTool.Size, Mode=TwoWay}" />
+
+        <Rectangle
+            Grid.Row="1"
+            Width="198"
+            Height="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Fill="{StaticResource SeporatorColor}"
+            Visibility="{x:Bind CurrentDrawingTool.FormsImagePathList.Count, Mode=OneWay, Converter={StaticResource FillToVisibilityConvert}}" />
+
+        <Grid Grid.Row="2" Visibility="{x:Bind CurrentDrawingTool.FormsImagePathList.Count, Mode=OneWay, Converter={StaticResource FillToVisibilityConvert}}">
+
+            <TextBlock
+                x:Name="OpacityTextBlock"
+                x:Uid="Opacity"
+                Margin="8,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                d:Text="Непрозрачность"
+                FontFamily="{StaticResource Raleway-Medium}"
+                FontSize="10" />
+
+            <muxc:NumberBox
+                x:Name="OpacityNumberBox"
+                Margin="0,7,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                FontFamily="{StaticResource Raleway-Medium}"
+                LargeChange="1"
+                Maximum="{Binding ElementName=OpacitySlider, Path=Maximum, Mode=OneWay}"
+                Minimum="{Binding ElementName=OpacitySlider, Path=Minimum, Mode=OneWay}"
+                SmallChange="1"
+                Style="{StaticResource SizeAndOpacityNumberBoxStyle}"
+                Value="{x:Bind CurrentDrawingTool.Opacity, Mode=TwoWay}" />
+
+            <Slider
+                x:Name="OpacitySlider"
+                Width="196"
+                Margin="0,45,0,10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                IsTabStop="False"
+                IsThumbToolTipEnabled="False"
+                Maximum="100"
+                Minimum="0"
+                Style="{StaticResource OpacityAndSizeSlidesrStyle}"
+                Value="{x:Bind CurrentDrawingTool.Opacity, Mode=TwoWay}" />
+
+            <Rectangle
+                Width="198"
+                Height="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Fill="{StaticResource SeporatorColor}" />
+        </Grid>
+
+        <Grid Grid.Row="3" Visibility="{x:Bind CurrentDrawingTool.FormsImagePathList.Count, Mode=OneWay, Converter={StaticResource FillToVisibilityConvert}}">
+
+            <TextBlock
+                x:Name="ShapeTextBlock"
+                x:Uid="Shape"
+                Margin="10,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                d:Text="Форма"
+                FontFamily="{StaticResource Raleway-Medium}"
+                FontSize="10" />
+
+            <!--  List all forms for current drawing tool  -->
+            <GridView
+                Margin="10,37,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                IsTabStop="False"
+                ItemContainerStyle="{StaticResource DrawingToolFormGridViewItemStyle}"
+                ItemsSource="{x:Bind CurrentDrawingTool.FormsImagePathList, Mode=OneWay}"
+                SelectedItem="{x:Bind CurrentFormTool, Mode=TwoWay}">
+
+                <GridView.ItemsPanel>
+
+                    <ItemsPanelTemplate>
+
+                        <ItemsWrapGrid
+                            ItemHeight="50"
+                            ItemWidth="50"
+                            MaximumRowsOrColumns="4"
+                            Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+
+                <GridView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Image
+                            Width="30"
+                            Height="30"
+                            Source="{Binding}" />
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </Grid>
+    </Grid>
+</UserControl>

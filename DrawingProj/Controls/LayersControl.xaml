@@ -1,0 +1,170 @@
+﻿<UserControl
+    x:Class="DrawingProj.Controls.LayersControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converts="using:DrawingProj.Converts"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:DrawingProj.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:services="using:DrawingProj.Services"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <converts:ObjectToVisibilityConvert x:Key="ObjectToVisibilityConvert" />
+    </UserControl.Resources>
+
+    <UserControl.RenderTransform>
+        <TransformGroup>
+            <TranslateTransform x:Name="ControlTranslate" />
+        </TransformGroup>
+    </UserControl.RenderTransform>
+
+    <!--  A window that stores a list of all layers in the current sketch  -->
+    <Grid
+        x:Name="MainGrid"
+        Background="{StaticResource DrawingToolsBarBackground}"
+        CornerRadius="7">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid
+            Grid.Row="0"
+            Background="{StaticResource SettingsHeaderColor}"
+            ManipulationDelta="MainGrid_ManipulationDelta"
+            ManipulationMode="TranslateX,TranslateY">
+
+            <Button
+                x:Name="CloseDrawingTollSettings"
+                Width="15"
+                Height="15"
+                Margin="0,0,3,0"
+                HorizontalAlignment="Right"
+                Click="CloseDrawingTollSettings_Click"
+                IsTabStop="False">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button" />
+                </Button.Template>
+
+                <FontIcon
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="12"
+                    Foreground="{StaticResource SettingsForeground}"
+                    Glyph="&#xE711;" />
+            </Button>
+        </Grid>
+
+        <!--  Setting opacity for current layer  -->
+        <Grid Grid.Row="1" Visibility="{x:Bind CurrentLayer, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConvert}}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                x:Uid="Opacity"
+                Grid.Row="0"
+                Margin="10,20,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontFamily="{StaticResource Raleway-Medium}"
+                FontSize="10" />
+
+            <Slider
+                Grid.Row="1"
+                Width="140"
+                Margin="0,7,0,10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Maximum="100"
+                Minimum="0"
+                StepFrequency="1"
+                Style="{StaticResource OpacityAndSizeSlidesrStyle}"
+                Value="{x:Bind CurrentLayer.Opasity, Mode=TwoWay}" />
+
+            <Rectangle
+                Grid.Row="1"
+                Width="140"
+                Height="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Fill="{StaticResource SeporatorColor}" />
+
+            <muxc:NumberBox
+                Grid.Row="0"
+                Width="40"
+                Height="27"
+                Margin="0,12,12,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                FontSize="13"
+                Style="{StaticResource SizeAndOpacityNumberBoxStyle}"
+                Value="{x:Bind CurrentLayer.Opasity, Mode=TwoWay}" />
+        </Grid>
+
+        <!--  List all layers in current sketch  -->
+        <ListBox
+            Name="LayersListBox"
+            Grid.Row="2"
+            Margin="0,0,0,10"
+            VerticalAlignment="Bottom"
+            IsTabStop="False"
+            ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+            ItemsSource="{x:Bind LayersList, Mode=OneWay}"
+            SelectedItem="{x:Bind CurrentLayer, Mode=TwoWay}"
+            SelectionMode="Single">
+
+            <ListBox.ItemTemplate>
+
+                <DataTemplate>
+
+                    <local:LayerListElementControl
+                        x:Name="LayerItemControl"
+                        IsLock="{Binding IsLock, Mode=TwoWay}"
+                        IsVisible="{Binding IsVisible, Mode=TwoWay}"
+                        LayerName="{Binding DisplayName, Mode=TwoWay}"
+                        PreviewImageSource="{Binding ImageSource, Mode=OneWay}"
+                        RightTapped="LayerItemControl_RightTapped" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!--  Grid with "Add layer" and "Delete cyrrent layer" buttons  -->
+        <Grid Grid.Row="3" Background="{StaticResource DrawingToolsBarBackground}">
+
+            <Button
+                x:Name="AddLayers"
+                Width="30"
+                Height="20"
+                Margin="50,0,0,10"
+                HorizontalAlignment="Left"
+                Command="{x:Bind services:ServiceLocator.SketchPageViewModel.AddLayerAsyncCommand}"
+                IsTabStop="False"
+                Style="{StaticResource UnresponsiveButtonStyle}">
+
+                <BitmapIcon UriSource="{StaticResource AddLayerIcon}" />
+            </Button>
+
+            <Button
+                x:Name="DeleteSelectedLayers"
+                Width="20"
+                Height="20"
+                Margin="0,0,50,10"
+                HorizontalAlignment="Right"
+                Command="{x:Bind services:ServiceLocator.SketchPageViewModel.DeleteLayerAsyncCommand}"
+                IsTabStop="False"
+                Style="{StaticResource UnresponsiveButtonStyle}">
+
+                <BitmapIcon UriSource="{StaticResource DeleteLayerIcon}" />
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

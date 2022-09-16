@@ -1,0 +1,34 @@
+﻿<Application
+    x:Class="DrawingProj.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DrawingProj"
+    xmlns:services="using:DrawingProj.Services">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <ResourceDictionary Source="/Resources/Dictionary/ImagesDictionary.xaml" />
+                <ResourceDictionary Source="/Resources/Dictionary/ColorsDictionary.xaml" />
+                <ResourceDictionary Source="/Resources/Dictionary/FontsDictionary.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/SketchesGridViewItemStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/CreateProjectButtonStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/OpacityAndSizeSlidersStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/ToolsSettingsToggleButtonStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/DrawingToolFormGridViewItemStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/UnresponsiveButtonStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/ColorModeComboBoxStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/SizeAndOpacityNumberBoxStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/CustomListBoxItemStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/PaperListBoxItemStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/ExamplesColorsGridViewItemStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <services:ServiceLocator x:Key="Locator" />
+            <Color x:Key="SystemAccentColorDark1">#FD8B4C</Color>
+            <x:Double x:Key="TeachingTipMaxWidth">450</x:Double>
+            <SolidColorBrush x:Key="MenuFlyoutItemBackgroundPointerOver" Color="#FDD9C6" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

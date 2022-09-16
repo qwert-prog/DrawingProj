@@ -1,0 +1,16 @@
+{
+        "build_params":
+	[
+		{
+			"bundle": "PhotoAndVideoLabsLLC.PhotoSizeChanger",
+			"innerID": "windows.577696.microsoft-store",
+			"platform": "windows",
+			"language": ["EN"],
+			"payment": "free",
+			"unlock": false,
+			"has_banner": true,
+			"build_type": "release"
+		}
+	]
+}
+        

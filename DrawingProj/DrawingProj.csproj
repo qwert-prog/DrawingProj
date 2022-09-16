@@ -1,0 +1,501 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{C363A353-3818-4209-9C28-3CA8A7D63AFF}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PocketSketchbook</RootNamespace>
+    <AssemblyName>PocketSketchbook</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <PackageCertificateThumbprint>47290286F01CA153447BB8BA446D7288B425FB4F</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>SketchbookIllustration_TemporaryKey.pfx</PackageCertificateKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <LangVersion>latest</LangVersion>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <LangVersion>latest</LangVersion>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <LangVersion>latest</LangVersion>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <LangVersion>latest</LangVersion>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <LangVersion>latest</LangVersion>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <LangVersion>latest</LangVersion>
+    <OutputPath>bin\ARM64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <LangVersion>latest</LangVersion>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <LangVersion>latest</LangVersion>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\DrawingController.cs" />
+    <Compile Include="Controls\ColorPickerControl.xaml.cs">
+      <DependentUpon>ColorPickerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DrawingToolControl.xaml.cs">
+      <DependentUpon>DrawingToolControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LayerListElementControl.xaml.cs">
+      <DependentUpon>LayerListElementControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LayersControl.xaml.cs">
+      <DependentUpon>LayersControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProjectsPageItemControl.xaml.cs">
+      <DependentUpon>ProjectsPageItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ToolsSettingsControl.xaml.cs">
+      <DependentUpon>ToolsSettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converts\ColorNotOpacityToBrushConvert.cs" />
+    <Compile Include="Converts\ColorToBrushConvert.cs" />
+    <Compile Include="Converts\ExamplesColorToVisibilityConvert.cs" />
+    <Compile Include="Converts\FloatZoomFactorToPercentageLine.cs" />
+    <Compile Include="Converts\IsCheckedToCanvasToggleButtonBacground.cs" />
+    <Compile Include="Converts\IsCheckedToColorConvert.cs" />
+    <Compile Include="Converts\EmptyToVisibleConvert.cs" />
+    <Compile Include="Converts\FillToVisibilityConvert.cs" />
+    <Compile Include="Converts\ObjectToVisibilityConvert.cs" />
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DrawingTool.cs" />
+    <Compile Include="Model\Layer.cs" />
+    <Compile Include="Model\Sketch.cs" />
+    <Compile Include="Model\ToolImageTypes.cs" />
+    <Compile Include="UndoRedoOperations\DrawLineOperation.cs" />
+    <Compile Include="UndoRedoOperations\Interfaces\IUndoRedoOperation.cs" />
+    <Compile Include="UndoRedoOperations\UndoRedo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AssetsService.cs" />
+    <Compile Include="Services\ListToolsService.cs" />
+    <Compile Include="Services\ServiceLocator.cs" />
+    <Compile Include="ViewModels\CanvasViewModel.cs" />
+    <Compile Include="ViewModels\ProjectsPageViewModel.cs" />
+    <Compile Include="ViewModels\SketchPageViewModel.cs" />
+    <Compile Include="View\Dialogs\DeleteSketchDialog.xaml.cs">
+      <DependentUpon>DeleteSketchDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\ResetAllDialog.xaml.cs">
+      <DependentUpon>ResetAllDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ExtendedSplash.xaml.cs">
+      <DependentUpon>ExtendedSplash.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProjectsPage.xaml.cs">
+      <DependentUpon>ProjectsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SketchPage.xaml.cs">
+      <DependentUpon>SketchPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Brushes\DrawingTool0\Color.png" />
+    <Content Include="Assets\Brushes\DrawingTool0\Form.png" />
+    <Content Include="Assets\Brushes\DrawingTool0\Main.png" />
+    <Content Include="Assets\Brushes\DrawingTool0\NotActive.png" />
+    <Content Include="Assets\Brushes\DrawingTool1\Color.png" />
+    <Content Include="Assets\Brushes\DrawingTool1\Form.png" />
+    <Content Include="Assets\Brushes\DrawingTool1\Main.png" />
+    <Content Include="Assets\Brushes\DrawingTool1\NotActive.png" />
+    <Content Include="Assets\Brushes\DrawingTool2\Main.png" />
+    <Content Include="Assets\Brushes\DrawingTool2\NotActive.png" />
+    <Content Include="Assets\Brushes\DrawingTool3\Color.png" />
+    <Content Include="Assets\Brushes\DrawingTool3\Form.png" />
+    <Content Include="Assets\Brushes\DrawingTool3\Main.png" />
+    <Content Include="Assets\Brushes\DrawingTool3\NotActive.png" />
+    <Content Include="Assets\Brushes\DrawingTool4\Color.png" />
+    <Content Include="Assets\Brushes\DrawingTool4\Form.png" />
+    <Content Include="Assets\Brushes\DrawingTool4\Main.png" />
+    <Content Include="Assets\Brushes\DrawingTool4\NotActive.png" />
+    <Content Include="Assets\Brushes\DrawingTool5\Color.png" />
+    <Content Include="Assets\Brushes\DrawingTool5\Form.png" />
+    <Content Include="Assets\Brushes\DrawingTool5\Main.png" />
+    <Content Include="Assets\Brushes\DrawingTool5\NotActive.png" />
+    <Content Include="Assets\Brushes\DrawingTool6\Color.png" />
+    <Content Include="Assets\Brushes\DrawingTool6\Form.png" />
+    <Content Include="Assets\Brushes\DrawingTool6\Main.png" />
+    <Content Include="Assets\Brushes\DrawingTool6\NotActive.png" />
+    <Content Include="Assets\Brushes\DrawingTool7\Color.png" />
+    <Content Include="Assets\Brushes\DrawingTool7\Form.png" />
+    <Content Include="Assets\Brushes\DrawingTool7\Main.png" />
+    <Content Include="Assets\Brushes\DrawingTool7\NotActive.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Color.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %2810%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %2811%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %2812%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %2813%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %2814%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %2815%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %2816%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %2817%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %2818%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %282%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %283%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %284%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %285%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %286%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %287%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %288%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form %289%29.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Form.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\Main.png" />
+    <Content Include="Assets\Brushes\DrawingTool8\NotActive.png" />
+    <Content Include="Assets\Brushes\DrawingTool9\Color.png" />
+    <Content Include="Assets\Brushes\DrawingTool9\Color.png" />
+    <Content Include="Assets\Brushes\DrawingTool9\Form.png" />
+    <Content Include="Assets\Brushes\DrawingTool9\Form.png" />
+    <Content Include="Assets\Brushes\DrawingTool9\Main.png" />
+    <Content Include="Assets\Brushes\DrawingTool9\NotActive.png" />
+    <Content Include="Assets\Fonts\segoeui.ttf" />
+    <Content Include="Assets\Fonts\segoeuib.ttf" />
+    <Content Include="Assets\Fonts\seguisb.ttf" />
+    <Content Include="Assets\Icons\AddLayer.png" />
+    <Content Include="Assets\Icons\Backgrounds.png" />
+    <Content Include="Assets\Icons\CollapsedWindows.png" />
+    <Content Include="Assets\Icons\DeleteLayer.png" />
+    <Content Include="Assets\Icons\DownScale.png" />
+    <Content Include="Assets\Icons\Hide.png" />
+    <Content Include="Assets\Icons\Layers.png" />
+    <Content Include="Assets\Icons\Lock.png" />
+    <Content Include="Assets\Icons\PencilLogo.png" />
+    <Content Include="Assets\Icons\Redo.png" />
+    <Content Include="Assets\Icons\Reset.png" />
+    <Content Include="Assets\Icons\SettingsButtonIcon.png" />
+    <Content Include="Assets\Icons\SettingsIcon.png" />
+    <Content Include="Assets\Icons\Share.png" />
+    <Content Include="Assets\Icons\Show.png" />
+    <Content Include="Assets\Icons\ToolsSettings.png" />
+    <Content Include="Assets\Icons\TransparentLayersBackgraundImage.jpg" />
+    <Content Include="Assets\Icons\Undo.png" />
+    <Content Include="Assets\Icons\Unlock.png" />
+    <Content Include="Assets\Icons\UpScale.png" />
+    <Content Include="Assets\Icons\VisibleWindows.png" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\Paper\Background0.png" />
+    <Content Include="Assets\Paper\Background1.png" />
+    <Content Include="Assets\Paper\Background2.png" />
+    <Content Include="Assets\Paper\Background3.png" />
+    <Content Include="Assets\Paper\Background4.png" />
+    <Content Include="Assets\Paper\Background5.png" />
+    <Content Include="Assets\Paper\Background6.png" />
+    <Content Include="Assets\Paper\Background7.png" />
+    <Content Include="Assets\Paper\Background8.png" />
+    <Content Include="Assets\Paper\Background9.png" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen.scale-150.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-400.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Data\StreamingAssets\am_builds.txt" />
+    <Content Include="Data\StreamingAssets\am_project.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Controls\ColorPickerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DrawingToolControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LayerListElementControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LayersControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ProjectsPageItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ToolsSettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Dictionary\ColorsDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Dictionary\FontsDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Dictionary\ImagesDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\ColorModeComboBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\CreateProjectButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\CustomListBoxItemStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\DrawingToolFormGridViewItemStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\ExamplesColorsGridViewItemStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\OpacityAndSizeSlidersStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\PaperListBoxItemStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\SizeAndOpacityNumberBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\SketchesGridViewItemStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\ToolsSettingsToggleButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\UnresponsiveButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Dialogs\DeleteSketchDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialogs\ResetAllDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ExtendedSplash.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProjectsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SketchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ColorHelper">
+      <Version>1.6.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter">
+      <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Analytics">
+      <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Crashes">
+      <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.2.12</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.UI.Xaml">
+      <Version>2.7.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog">
+      <Version>2.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.26.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\StreamingAssets\app_config.json" />
+    <Content Include="Data\StreamingAssets\products_config.json" />
+    <Content Include="Data\StreamingAssets\additional_config.json" />
+    <Content Include="Data\StreamingAssets\default_storage_config.json" />
+    <Content Include="Data\StreamingAssets\gdpr_config.json" />
+    <Content Include="Assets\Fonts\Raleway-SemiBold.ttf" />
+    <Content Include="Assets\Fonts\Raleway-Regular.ttf" />
+    <Content Include="Assets\Fonts\Raleway-Medium.ttf" />
+    <Content Include="Assets\Fonts\Raleway-ExtraBold.ttf" />
+    <Content Include="Assets\Fonts\Raleway-Bold.ttf" />
+    <Content Include="Assets\Fonts\Raleway-Black.ttf" />
+    <PRIResource Include="Resources\Strings\zh-CN\Resources.resw" />
+    <PRIResource Include="Resources\Strings\zh-CN\Canvases\Canvases.resw" />
+    <PRIResource Include="Resources\Strings\pt-PT\Resources.resw" />
+    <PRIResource Include="Resources\Strings\pt-PT\Canvases\Canvases.resw" />
+    <PRIResource Include="Resources\Strings\ko-KR\Resources.resw" />
+    <PRIResource Include="Resources\Strings\ko-KR\Canvases\Canvases.resw" />
+    <PRIResource Include="Resources\Strings\ja-JP\Resources.resw" />
+    <PRIResource Include="Resources\Strings\ja-JP\Canvases\Canvases.resw" />
+    <PRIResource Include="Resources\Strings\it-IT\Resources.resw" />
+    <PRIResource Include="Resources\Strings\it-IT\Canvases\Canvases.resw" />
+    <PRIResource Include="Resources\Strings\fr-FR\Resources.resw" />
+    <PRIResource Include="Resources\Strings\fr-FR\Canvases\Canvases.resw" />
+    <PRIResource Include="Resources\Strings\es-ES\Resources.resw" />
+    <PRIResource Include="Resources\Strings\es-ES\Canvases\Canvases.resw" />
+    <PRIResource Include="Resources\Strings\de-DE\Resources.resw" />
+    <PRIResource Include="Resources\Strings\de-DE\Canvases\Canvases.resw" />
+    <PRIResource Include="Resources\Strings\en-US\Canvases\Canvases.resw" />
+    <PRIResource Include="Resources\Strings\en-US\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IoC\IoC.csproj">
+      <Project>{2EE40FAD-2A1B-4282-BEDB-E7AD851F25A7}</Project>
+      <Name>IoC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{D8A4FFA8-475B-48FD-93E4-88E9AD2C0C19}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

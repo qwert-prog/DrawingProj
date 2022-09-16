@@ -1,0 +1,559 @@
+{
+  "smartads_behaviour": {
+    "version": "6.5.2",
+    "config": {
+      "flow": {
+        "items": [
+          {
+            "id": "3595c35d-ede5-475f-97b3-2a839cd83af3",
+            "index": 0,
+            "content": {
+              "items": [
+                {
+                  "type": "delay",
+                  "time_interval": {
+                    "max": 10
+                  }
+                }
+              ]
+            },
+            "flow_type": "fixed_item"
+          },
+          {
+            "id": "505cfd6c-f953-4a92-8104-b87c3d2ec983",
+            "index": 1,
+            "content": {
+              "items": [
+                {
+                  "name": "Стартовый оффер",
+                  "type": "internal_start_offer",
+                  "options": {}
+                }
+              ]
+            },
+            "flow_type": "fixed_item"
+          },
+          {
+            "id": "2a03bf82-1731-4025-9072-ab863629d090",
+            "index": 2,
+            "content": {
+              "items": [
+                {
+                  "type": "delay",
+                  "time_interval": {
+                    "min": 60
+                  }
+                }
+              ]
+            },
+            "flow_type": "fixed_item"
+          },
+          {
+            "id": "4979c632-1008-471b-b0fb-fa674bfce141",
+            "index": 3,
+            "content": {
+              "items": [
+                {
+                  "name": "Оффер",
+                  "type": "internal_offer",
+                  "options": {}
+                }
+              ]
+            },
+            "flow_type": "loop_item"
+          },
+          {
+            "id": "66d09906-7820-4367-9e0a-06b2171ab524",
+            "index": 4,
+            "content": {
+              "items": [
+                {
+                  "type": "delay",
+                  "time_interval": {
+                    "min": 60
+                  }
+                }
+              ]
+            },
+            "flow_type": "loop_item"
+          },
+          {
+            "id": "524cbf55-e750-4eb0-b8d5-4922c39f7212",
+            "index": 5,
+            "content": {
+              "items": [
+                {
+                  "name": "Кросс промо видео",
+                  "type": "fs_video",
+                  "options": {}
+                }
+              ]
+            },
+            "flow_type": "loop_item"
+          },
+          {
+            "id": "66d09906-7820-8594-9e0a-06b2171ab784",
+            "index": 6,
+            "content": {
+              "items": [
+                {
+                  "type": "delay",
+                  "time_interval": {
+                    "min": 60
+                  }
+                }
+              ]
+            },
+            "flow_type": "loop_item"
+          }
+        ]
+      },
+      "debug_mode": {
+        "SAdManager": true,
+        "SAdPurchase": true,
+        "GDPRController": true,
+        "AnalyticsManager": true,
+        "SAdNetworkReachability": true
+      },
+      "banner_space": {
+        "items": [
+          {
+            "events": [
+              {
+                "key": "present_launch_screen"
+              }
+            ],
+            "content": {
+              "items": [
+                {
+                  "type": "internal_start_offer",
+                  "order": {},
+                  "options": {}
+                }
+              ]
+            }
+          },
+          {
+            "events": [
+              {
+                "key": "present_cycle"
+              }
+            ],
+            "content": {
+              "items": [
+                {
+                  "type": "internal_offer",
+                  "order": {},
+                  "options": {}
+                },
+                {
+                  "type": "fs_video",
+                  "order": {},
+                  "options": {}
+                }
+              ]
+            }
+          },
+          {
+            "events": [
+              {
+                "key": "present_offer"
+              }
+            ],
+            "content": {
+              "items": [
+                {
+                  "type": "internal_offer",
+                  "order": {},
+                  "options": {}
+                }
+              ],
+              "settings": {
+                "forced": true
+              }
+            }
+          }
+        ]
+      },
+      "content_settings": {
+        "items": []
+      },
+      "content_global_settings": {
+        "items": [
+          {
+            "type": "delay",
+            "time_interval": {
+              "min": 60
+            }
+          },
+          {
+            "type": "standard",
+            "options": {
+              "close_button_scale": 1,
+              "banner_refresh_interval": 20,
+              "store_product_presentation": "external"
+            }
+          },
+          {
+            "type": "fs_video",
+            "options": {
+              "cross_options": {
+                "position": "top-left",
+                "is_active": true,
+                "background_color": "#00000080"
+              },
+              "timer_options": {
+                "position": "top-left",
+                "is_active": true,
+                "duration_time": 100,
+                "background_color": "#00000080",
+                "color_of_timer_line": "#ffffffff",
+                "width_of_timer_line": 3,
+                "text_color_of_number": "#ffffffff",
+                "indent_from_edge_of_timer_line": 2
+              },
+              "video_options": {
+                "is_volume_on": true
+              },
+              "volume_options": {
+                "position": "top-right",
+                "is_active": true,
+                "background_color": "#00000080"
+              },
+              "background_color": "#000000ff",
+              "first_static_view": {
+                "is_active": true,
+                "duration_time": 30,
+                "background_color": "#00000080",
+                "text_color_of_title": "#ffffffff",
+                "text_of_get_app_btn": "Download",
+                "text_color_of_get_app_btn": "#ffffffff",
+                "background_color_of_get_app_btn": "#00000000"
+              },
+              "second_static_view": {
+                "is_active": true,
+                "background_color": "#ffffffff",
+                "text_color_of_title": "#000000ff",
+                "text_of_get_app_btn": "Download",
+                "is_hidden_count_of_rating": false,
+                "text_color_of_get_app_btn": "#ffffffff",
+                "text_color_of_count_of_rating": "#8c8c8cff",
+                "background_color_of_get_app_btn": "#00bf1cff"
+              },
+              "duration_time_to_close": 0,
+              "store_product_presentation": "internal"
+            }
+          },
+          {
+            "type": "texts_container",
+            "options": {
+              "Continue": {
+                "DE": "WEITER",
+                "EN": "CONTINUE",
+                "ES": "CONTINUAR",
+                "FR": "CONTINUER",
+                "IT": "CONTINUA",
+                "JA": "続ける",
+                "KO": "계속",
+                "PT": "CONTINUAR",
+                "RU": "ПРОДОЛЖИТЬ",
+                "ZH": "继续"
+              },
+              "subscribe": {
+                "DE": "Abonnieren",
+                "EN": "Subscribe",
+                "ES": "Suscribirse",
+                "FR": "S’abonner",
+                "IT": "Abbonati",
+                "JA": "講読する",
+                "KO": "구독",
+                "PT": "Inscrever-se",
+                "RU": "Подписаться",
+                "ZH": "订阅"
+              },
+              "StartTrial": {
+                "DE": "KOSTENLOS AUSPROBIEREN",
+                "EN": "TRY FOR FREE",
+                "ES": "PROBAR GRATIS",
+                "FR": "ESSAI GRATUIT",
+                "IT": "PROVA GRATIS",
+                "JA": "無料で試す",
+                "KO": "무료로 사용해보기",
+                "PT": "TENTAR GRÁTIS",
+                "RU": "ПОПРОБОВАТЬ БЕСПЛАТНО",
+                "ZH": "免费试用"
+              }
+            }
+          },
+          {
+            "type": "internal_start_offer",
+            "options": {
+              "pop_up": {
+                "offer_close": {
+                  "CN": false,
+                  "DE": false,
+                  "ES": false,
+                  "FR": false,
+                  "HK": false,
+                  "IT": false,
+                  "JP": false,
+                  "KR": false,
+                  "PT": false,
+                  "RU": false,
+                  "TW": false,
+                  "US": false,
+                  "default": false
+                },
+                "purchase_cancel": {
+                  "CN": false,
+                  "DE": false,
+                  "ES": false,
+                  "FR": false,
+                  "HK": false,
+                  "IT": false,
+                  "JP": false,
+                  "KR": false,
+                  "PT": false,
+                  "RU": false,
+                  "TW": false,
+                  "US": false,
+                  "default": false
+                }
+              },
+              "buy_button": {
+            "1": {
+              "text_trial": {
+                "default": "subscribe"
+              },
+              "text_no_trial": {
+                "default": "subscribe"
+              }
+            },
+            "2": {
+              "text_trial": {
+                "default": "Continue"
+              },
+              "text_no_trial": {
+                "default": "Continue"
+              }
+            },
+            "3": {
+              "text_trial": {
+                "default": "Continue"
+              },
+              "text_no_trial": {
+                "default": "Continue"
+              }
+            }
+          },
+              "price_text": {
+                "font_type": {
+                  "CN": "normal",
+                  "DE": "normal",
+                  "ES": "normal",
+                  "FR": "normal",
+                  "HK": "normal",
+                  "IT": "normal",
+                  "JP": "normal",
+                  "KR": "normal",
+                  "PT": "normal",
+                  "RU": "normal",
+                  "TW": "normal",
+                  "US": "normal",
+                  "default": "normal"
+                },
+                "price_text_place": {
+                  "CN": "bottom",
+                  "DE": "bottom",
+                  "ES": "bottom",
+                  "FR": "bottom",
+                  "HK": "bottom",
+                  "IT": "bottom",
+                  "JP": "bottom",
+                  "KR": "bottom",
+                  "PT": "bottom",
+                  "RU": "bottom",
+                  "TW": "bottom",
+                  "US": "bottom",
+                  "default": "underbutton"
+                }
+              },
+              "close_offer": {
+                "close_type": {
+                  "CN": "Overtitle",
+                  "DE": "Overtitle",
+                  "ES": "Overtitle",
+                  "FR": "Overtitle",
+                  "HK": "Overtitle",
+                  "IT": "Overtitle",
+                  "JP": "Overtitle",
+                  "KR": "Overtitle",
+                  "PT": "Overtitle",
+                  "RU": "Overtitle",
+                  "TW": "Overtitle",
+                  "US": "Overtitle",
+                  "default": "Overtitle"
+                }
+              },
+              "priority_type_sub": {
+                "active_type": {
+                  "default": "2"
+                },
+                "subscriptions_toggle_buy": {
+                  "CN": false,
+                  "DE": false,
+                  "ES": false,
+                  "FR": false,
+                  "HK": false,
+                  "IT": false,
+                  "JP": false,
+                  "KR": false,
+                  "PT": false,
+                  "RU": false,
+                  "TW": false,
+                  "US": false,
+                  "default": false
+                }
+              }
+            }
+          },
+          {
+            "type": "internal_offer",
+            "options": {
+              "pop_up": {
+                "offer_close": {
+                  "CN": false,
+                  "DE": false,
+                  "ES": false,
+                  "FR": false,
+                  "HK": false,
+                  "IT": false,
+                  "JP": false,
+                  "KR": false,
+                  "PT": false,
+                  "RU": false,
+                  "TW": false,
+                  "US": false,
+                  "default": false
+                },
+                "purchase_cancel": {
+                  "CN": false,
+                  "DE": false,
+                  "ES": false,
+                  "FR": false,
+                  "HK": false,
+                  "IT": false,
+                  "JP": false,
+                  "KR": false,
+                  "PT": false,
+                  "RU": false,
+                  "TW": false,
+                  "US": false,
+                  "default": false
+                }
+              },
+              "buy_button": {
+            "1": {
+              "text_trial": {
+                "default": "subscribe"
+              },
+              "text_no_trial": {
+                "default": "subscribe"
+              }
+            },
+            "2": {
+              "text_trial": {
+                "default": "Continue"
+              },
+              "text_no_trial": {
+                "default": "Continue"
+              }
+            },
+            "3": {
+              "text_trial": {
+                "default": "Continue"
+              },
+              "text_no_trial": {
+                "default": "Continue"
+              }
+            }
+          },
+              "price_text": {
+                "font_type": {
+                  "CN": "normal",
+                  "DE": "normal",
+                  "ES": "normal",
+                  "FR": "normal",
+                  "HK": "normal",
+                  "IT": "normal",
+                  "JP": "normal",
+                  "KR": "normal",
+                  "PT": "normal",
+                  "RU": "normal",
+                  "TW": "normal",
+                  "US": "normal",
+                  "default": "normal"
+                },
+                "price_text_place": {
+                  "CN": "bottom",
+                  "DE": "bottom",
+                  "ES": "bottom",
+                  "FR": "bottom",
+                  "HK": "bottom",
+                  "IT": "bottom",
+                  "JP": "bottom",
+                  "KR": "bottom",
+                  "PT": "bottom",
+                  "RU": "bottom",
+                  "TW": "bottom",
+                  "US": "bottom",
+                  "default": "underbutton"
+                }
+              },
+              "close_offer": {
+                "close_type": {
+                  "CN": "TR_Cross",
+                  "DE": "TR_Cross",
+                  "ES": "TR_Cross",
+                  "FR": "TR_Cross",
+                  "HK": "TR_Cross",
+                  "IT": "TR_Cross",
+                  "JP": "TR_Cross",
+                  "KR": "TR_Cross",
+                  "PT": "TR_Cross",
+                  "RU": "TR_Cross",
+                  "TW": "TR_Cross",
+                  "US": "TR_Cross",
+                  "default": "TR_Cross"
+                }
+              },
+              "priority_type_sub": {
+                "active_type": {
+                  "default": "2"
+                },
+                "subscriptions_toggle_buy": {
+                  "CN": false,
+                  "DE": false,
+                  "ES": false,
+                  "FR": false,
+                  "HK": false,
+                  "IT": false,
+                  "JP": false,
+                  "KR": false,
+                  "PT": false,
+                  "RU": false,
+                  "TW": false,
+                  "US": false,
+                  "default": false
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "smartads": {
+    "items": []
+  }
+}

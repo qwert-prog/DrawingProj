@@ -1,0 +1,38 @@
+{
+  "acs": {
+    "main_acs_domain": "https://acs0.motivapp.at",
+    "reserve_acs_domain": "https://acs1.motivapp.at",
+    "options": [
+      {
+        "provider": "smartads_behaviour",
+        "meta": {
+          "config_group_id": 4042
+        }
+      },
+      {
+        "provider": "smartads",
+        "meta": {
+          "config_group_id": 4042,
+          "inner_id": "windows.578453.microsoft-store",
+          "language": "EN",
+          "placements": [
+            "internal_fs",
+            "eco_fs",
+            "fs_html",
+            "eco_standard",
+            "eco_context",
+            "eco_video",
+            "launch_screen"
+          ]
+        }
+      }
+    ]
+  },
+  "build_params": {
+    "build_type": "test",
+    "inner_id": "windows.578453.microsoft-store",
+    "available_languages": [
+      "EN"
+    ]
+  }
+}
